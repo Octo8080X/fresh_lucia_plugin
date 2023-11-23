@@ -97,3 +97,27 @@ export default defineConfig({
   ],
 });
 ```
+
+# Use session in route
+
+Session data is contained in context.
+
+```ts
+// routes/index.tsx
+import { WithSessionHandlerContext } from "../fresh_lucia_plugin/mod.ts";
+
+export default function Home({ state }: WithSessionHandlerContext) {
+  return (
+    <div class="px-4 py-8 mx-auto bg-[#86efac]">
+      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+        <p>{state.session ? state.session.user.username : "LO LOGIN"}</p>
+
+        {state.session
+          ? <a href="/logout" class="my-4">LOGOUT</a>
+          : <a href="/login" class="my-4">LOGIN</a>}
+      </div>
+    </div>
+  );
+}
+
+```
