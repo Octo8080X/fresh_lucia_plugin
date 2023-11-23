@@ -1,6 +1,7 @@
 # fresh-lucia-plugin
 
 Lucia plugin for Fresh(Deno)
+Login functionality (account creation/login/logout) is provided simply by applying the plugin.
 
 # Usage
 
@@ -11,7 +12,7 @@ Lucia plugin for Fresh(Deno)
 import { defineConfig } from "$fresh/server.ts";
 import twindPlugin from "$fresh/plugins/twind.ts";
 import twindConfig from "./twind.config.ts";
-import { getLuciaPlugin } from "./fresh-lucia-plugin/mod.ts";
+import { getLuciaPlugin } from "https://deno.land/x/fresh_lucia_plugin/mod.ts";
 import { auth } from "./utils/lucia.ts"; // auth is lucia instance
 
 export default defineConfig({
@@ -76,6 +77,8 @@ Custom username(password) and password constraints are available.
 
 ```ts
 // fresh.config.ts
+
+import { getLuciaPlugin, type LuciaPluginTextValidateResult } from "https://deno.land/x/fresh_lucia_plugin@0.0.2/mod.ts";
 
 function usernameValidate(username: string|undefined|null): LuciaPluginTextValidateResult {
   if (!username || username.length < 10) {
