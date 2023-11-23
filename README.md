@@ -98,7 +98,7 @@ export default defineConfig({
 });
 ```
 
-# Use session in route
+# Use session in routes
 
 Session data is contained in context.
 
