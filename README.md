@@ -1,6 +1,6 @@
 # fresh-lucia-plugin
 
-Lucia plugin for Fresh(Deno)
+Lucia plugin for Fresh(Deno)  
 Login functionality (account creation/login/logout) is provided simply by applying the plugin.
 
 # Usage
