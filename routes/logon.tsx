@@ -1,19 +1,21 @@
 import { Auth, HandlerContext, Handlers, LuciaError } from "../deps.ts";
-import {
-  passwordCreateValidate,
-  usernameCreateValidate,
-} from "../utils/validates.ts";
 import { PASSWORD_KEY, USERNAME_KEY } from "../utils/consts.ts";
 import { styles } from "../utils/style.ts";
+import { LuciaPluginPasswordValidate, LuciaPluginUsernameValidate } from "../utils/validates.ts";
 
-export function getLogonHandler(auth: Auth, loginAfterPath: string): Handlers {
+export function getLogonHandler(
+  auth: Auth,
+  loginAfterPath: string,
+  usernameValidate: LuciaPluginUsernameValidate,
+  passwordValidate: LuciaPluginPasswordValidate,
+): Handlers {
   return {
     async POST(req: Request, ctx: HandlerContext) {
       const formData = await req.formData();
       const username = formData.get(USERNAME_KEY);
       const password = formData.get(PASSWORD_KEY);
-      const usernameResult = usernameCreateValidate(username?.toString());
-      const passwordResult = passwordCreateValidate(password?.toString());
+      const usernameResult = usernameValidate(username?.toString());
+      const passwordResult = passwordValidate(password?.toString());
 
       if (!(usernameResult.success && passwordResult.success)) {
         return ctx.render({

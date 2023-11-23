@@ -10,6 +10,12 @@ import { getLuciaMiddlewareHandler } from "./middlewares/lucia_middleware.ts";
 import Login, { getLoginHandler } from "./routes/login.tsx";
 import Logon, { getLogonHandler } from "./routes/logon.tsx";
 import { getLogoutHandler } from "./routes/logout.tsx";
+import {
+  usernameCreateValidate,
+  passwordCreateValidate,
+  type LuciaPluginUsernameValidate,
+  type LuciaPluginPasswordValidate,
+} from "./utils/validates.ts";
 
 export interface LuciaPluginOption {
   customLogin?: {
@@ -26,14 +32,9 @@ export interface LuciaPluginOption {
   nonAuthPaths?: string[];
   customLoginAfterPath?: string;
   customLogoutAfterPath?: string;
-  customUsernameValidate?: (
-    username: string,
-  ) => { status: boolean; errors: string[] };
-  customPasswordValidate?: (
-    password: string,
-  ) => { status: boolean; errors: string[] };
+  customUsernameValidate?: LuciaPluginUsernameValidate,
+  customPasswordValidate?: LuciaPluginPasswordValidate
 }
-
 export function getLuciaPlugin(
   auth: Auth,
   option?: LuciaPluginOption,
@@ -50,10 +51,13 @@ export function getLuciaPlugin(
     ? { ...defaultLoginRoute, ...(option.customLogin) }
     : defaultLoginRoute;
 
+  const usernameValidate = option?.customUsernameValidate || usernameCreateValidate;
+  const passwordValidate = option?.customPasswordValidate || passwordCreateValidate;
+
   const defaultLogonRoute = {
     path: "/logon",
     component: Logon,
-    handler: getLogonHandler(auth, loginAfterPath),
+    handler: getLogonHandler(auth, loginAfterPath, usernameValidate, passwordValidate),
   };
   const logonRoute = option?.customLogout
     ? { ...defaultLogonRoute, ...(option.customLogon) }

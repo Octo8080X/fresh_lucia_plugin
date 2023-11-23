@@ -12,15 +12,13 @@ interface LuciaPluginTextValidateResultFailure {
   errors: string[];
 }
 
-type LuciaPluginTextValidateResult =
-  | LuciaPluginTextValidateResultSuccess
-  | LuciaPluginTextValidateResultFailure;
+export type LuciaPluginTextValidateResult = LuciaPluginTextValidateResultSuccess | LuciaPluginTextValidateResultFailure;
 
 export type LuciaPluginUsernameValidate = (
-  username: string,
+  username: string|undefined|null,
 ) => LuciaPluginTextValidateResult;
 export type LuciaPluginPasswordValidate = (
-  username: string,
+  username: string|undefined|null,
 ) => LuciaPluginTextValidateResult;
 
 const usernameCreateSchema = z
