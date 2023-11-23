@@ -18,9 +18,6 @@ export function getLoginHandler(auth: Auth, loginAfterPath: string): Handlers {
         });
       }
 
-      console.log(usernameResult.data,
-        passwordResult.data);
-
       try {
         const key = await auth.useKey(
           USERNAME_KEY,
