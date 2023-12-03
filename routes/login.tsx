@@ -96,7 +96,7 @@ export default function Login({ data }: LoginComponentProps) {
         </form>
       </div>
       <div>
-        <a href="/logon" style={styles.link}>Create Account</a>
+        <a href="/create_account" style={styles.link}>Create Account</a>
       </div>
     </div>
   );

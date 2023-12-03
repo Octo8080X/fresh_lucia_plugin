@@ -8,7 +8,7 @@ import type {
 } from "./deps.ts";
 import { getLuciaMiddlewareHandler } from "./middlewares/lucia_middleware.ts";
 import Login, { getLoginHandler } from "./routes/login.tsx";
-import Logon, { getLogonHandler } from "./routes/logon.tsx";
+import CreateAccount, { getCreateAccountHandler } from "./routes/create_account.tsx";
 import { getLogoutHandler } from "./routes/logout.tsx";
 import {
   usernameCreateValidate,
@@ -23,7 +23,7 @@ export interface LuciaPluginOption {
     component?: ComponentType<PageProps> | ComponentType<AppProps>;
     handler?: Handlers;
   };
-  customLogon?: {
+  customCreateAccount?: {
     path?: string;
     component?: ComponentType<PageProps> | ComponentType<AppProps>;
     handler?: Handlers;
@@ -54,14 +54,14 @@ export function getLuciaPlugin(
   const usernameValidate = option?.customUsernameValidate || usernameCreateValidate;
   const passwordValidate = option?.customPasswordValidate || passwordCreateValidate;
 
-  const defaultLogonRoute = {
-    path: "/logon",
-    component: Logon,
-    handler: getLogonHandler(auth, loginAfterPath, usernameValidate, passwordValidate),
+  const defaultCreateAccountRoute = {
+    path: "/create_account",
+    component: CreateAccount,
+    handler: getCreateAccountHandler(auth, loginAfterPath, usernameValidate, passwordValidate),
   };
-  const logonRoute = option?.customLogout
-    ? { ...defaultLogonRoute, ...(option.customLogon) }
-    : defaultLogonRoute;
+  const createAccountRoute = option?.customLogout
+    ? { ...defaultCreateAccountRoute, ...(option.customCreateAccount) }
+    : defaultCreateAccountRoute;
 
   const defaultLogoutRoute = {
     path: "/logout",
@@ -80,7 +80,7 @@ export function getLuciaPlugin(
         middleware: {
           handler: getLuciaMiddlewareHandler(auth, {
             login: loginRoute.path,
-            logon: logonRoute.path,
+            createAccount: createAccountRoute.path,
             other,
           }),
         },
@@ -89,7 +89,7 @@ export function getLuciaPlugin(
     ],
     routes: [
       loginRoute,
-      logonRoute,
+      createAccountRoute,
       logoutRoute,
     ],
   };

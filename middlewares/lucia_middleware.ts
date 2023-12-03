@@ -12,7 +12,7 @@ export type WithSessionMiddlewareHandlerContext =
 
 export function getLuciaMiddlewareHandler(
   auth: Auth,
-  path: { login: string; logon: string; other: string[] },
+  path: { login: string; createAccount: string; other: string[] },
 ) {
   return async function (
     req: Request,
@@ -25,7 +25,7 @@ export function getLuciaMiddlewareHandler(
 
     if (
       ctx.destination == "route" &&
-      ![path.login, path.logon, ...path.other].includes(pathname) &&
+      ![path.login, path.createAccount, ...path.other].includes(pathname) &&
       !session
     ) {
       return new Response("Unauthorized", {

@@ -58,7 +58,7 @@ export default defineConfig({
 The components of the page can be replaced.
 
 - Login route component
-- Logon route component
+- Create Account route component
 
 ```ts
 // fresh.config.ts

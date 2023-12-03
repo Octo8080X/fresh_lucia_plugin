@@ -3,7 +3,7 @@ import { PASSWORD_KEY, USERNAME_KEY } from "../utils/consts.ts";
 import { styles } from "../utils/style.ts";
 import { LuciaPluginPasswordValidate, LuciaPluginUsernameValidate } from "../utils/validates.ts";
 
-export function getLogonHandler(
+export function getCreateAccountHandler(
   auth: Auth,
   loginAfterPath: string,
   usernameValidate: LuciaPluginUsernameValidate,
@@ -64,21 +64,21 @@ export function getLogonHandler(
   };
 }
 
-interface LogonComponentProps {
+interface CreateAccountComponentProps {
   data: {
     errors: string[];
     username?: string;
   };
 }
 
-export default function Logon({ data }: LogonComponentProps) {
+export default function CreateAccount({ data }: CreateAccountComponentProps) {
   return (
     <div style={styles.block}>
       <div>
         <h2>Create Account</h2>
       </div>
       <div>
-        <form action="/logon" method="post">
+        <form action="/create_account" method="post">
           <div style={styles.row}>
             {data?.errors?.length > 0 && (
               <ul>
@@ -106,7 +106,7 @@ export default function Logon({ data }: LogonComponentProps) {
             />
           </div>
           <div style={styles.row}>
-            <button type="submit" style={styles.button}>Login</button>
+            <button type="submit" style={styles.button}>CREATE</button>
           </div>
         </form>
       </div>
