@@ -3,6 +3,10 @@
 Lucia plugin for Fresh(Deno)  
 Login functionality (account creation/login/logout) is provided simply by applying the plugin.
 
+> [!CAUTION]
+> This repository is archived.
+> Successive developments will be taken over by [plantation](https://github.com/Octo8080X/plantation)
+
 # Usage
 
 ## Basic
